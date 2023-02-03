@@ -1,0 +1,41 @@
+
+
+.provider-card {
+    width: 120px;
+    display: flex;
+    /* align-items: center; */
+    flex-direction: column;
+}
+
+.provider-header {
+    font-size: 16px;
+    align-self: center;
+}
+
+.provider-logo {
+    display: block;
+    max-height: 100px;
+    max-width: 100px;
+    align-self: center;
+}
+
+@media (max-width: 768px) {
+    .provider-card {
+        width: 120px;
+        display: flex;
+        /* align-items: center; */
+        flex-direction: row;
+    }
+
+    .provider-header {
+        font-size: 16px;
+    }
+    
+    .provider-logo {
+        display: block;
+        max-height: 100px;
+        max-width: 100px;
+    } 
+}
+
+
