@@ -2,7 +2,6 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import "./provider-card.css";
 
 export default function ProviderCard({
   name,
@@ -15,14 +14,17 @@ export default function ProviderCard({
   const singleHandler = (evt) => changeSingle(evt.target.value);
   const hddHandler = (evt) => changeHdd(evt.target.value);
   return (
-    <div className={"provider-card"}>
-      <h3 className={"provider-header"}>{name}</h3>
-      <img
-        className={"provider-logo"}
-        alt="logo"
-        src={photo}
-        style={{ display: "block", maxHeight: "100px", maxWidth: "100px" }}
-      ></img>
+    <div className={"provider__card"}>
+      <div className={"provider__header-logo-wrapper"}>
+        <h3 className={"provider__header"}>{name}</h3>
+        <img
+          className={"provider__logo"}
+          alt="logo"
+          src={photo}
+          style={{ display: "block", maxHeight: "100px", maxWidth: "100px" }}
+        ></img>
+      </div>
+
       {single ? (
         <FormControl>
           <RadioGroup

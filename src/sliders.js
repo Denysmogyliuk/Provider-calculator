@@ -17,7 +17,7 @@ export default function Sliders({
   };
 
   return (
-    <Box width={800}>
+    <Box width={"auto"}>
       <Typography id="non-linear-slider" gutterBottom>
         {`Storage: ${valueStorage} GB`}
       </Typography>
