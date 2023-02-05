@@ -2,31 +2,28 @@ import {
   BarChart,
   ResponsiveContainer,
   ComposedChart,
-  Tooltip,
   Bar,
   XAxis,
   YAxis,
   LabelList,
   Cell,
-  CartesianGrid,
-  Legend,
-  Area,
-  Line,
 } from "recharts";
-import { useState, useEffect } from "react";
-import useResizeObserver from "@react-hook/resize-observer";
+import { useState, useEffect, useCallback } from "react";
+import throttle from "lodash.debounce";
 
 export default function Graph({ data }) {
   const [isVertical, setIsVertical] = useState();
-  useEffect(() => {
-    window.addEventListener("resize", getWidth);
+  const throttledSwitchWidth = useCallback(throttle(switchWidth, 300), []);
 
-    return window.removeEventListener("resize", getWidth);
-  });
-
-  function getWidth() {
-    setIsVertical(window.innerWidth < 860);
+  function switchWidth() {
+    setIsVertical(window.innerWidth < 880);
   }
+
+  useEffect(() => {
+    window.addEventListener("resize", throttledSwitchWidth);
+
+    return () => window.removeEventListener("resize", throttledSwitchWidth);
+  });
 
   return (
     <div className={"graph"}>
@@ -37,6 +34,7 @@ export default function Graph({ data }) {
               tick={{ fontFamily: "sans-serif" }}
               type="number"
               domain={[0, 100]}
+              hide
             />
             <Bar dataKey="cost" label={{ position: "top" }}>
               {data.map((entry) => (
@@ -44,11 +42,6 @@ export default function Graph({ data }) {
               ))}
               <LabelList dataKey="uv" position="top" fill="#000" />
             </Bar>{" "}
-            <XAxis
-              tick={{ fontFamily: "sans-serif" }}
-              dataKey="name"
-              allowDataOverflow="true"
-            />
           </BarChart>
         </ResponsiveContainer>
       ) : (
@@ -59,48 +52,21 @@ export default function Graph({ data }) {
             height={400}
             data={data}
             margin={{
-              top: 20,
+              top: 45,
               right: 20,
-              bottom: 20,
+              bottom: 45,
               left: 20,
             }}
           >
-            {/* <CartesianGrid stroke="#f5f5f5" /> */}
-            <XAxis type="number" />
-            {/* <YAxis dataKey="name" type="category" scale="band" /> */}
-            {/* <Tooltip /> */}
-            <Bar dataKey="cost" barSize={80} label={{ position: "top" }}>
+            <XAxis type="number" domain={[0, 100]} hide />
+            <Bar dataKey="cost" barSize={80} label={{ position: "right" }}>
               {data.map((entry) => (
                 <Cell key={entry.name} fill={entry.color} />
               ))}
             </Bar>
-            {/* <Line dataKey="cost" stroke="#ff7300" /> */}
           </ComposedChart>
         </ResponsiveContainer>
       )}
     </div>
   );
 }
-
-// export default function Graph({ data }) {
-//   return (
-//     <BarChart width={800} height={600} data={data}>
-//       <YAxis
-//         tick={{ fontFamily: "sans-serif" }}
-//         type="number"
-//         domain={[0, 100]}
-//       />
-//       <Bar dataKey="cost" label={{ position: "top" }}>
-//         {data.map((entry) => (
-//           <Cell key={entry.name} fill={entry.color} />
-//         ))}
-//         <LabelList dataKey="uv" position="top" fill="#000" />
-//       </Bar>{" "}
-//       <XAxis
-//         tick={{ fontFamily: "sans-serif" }}
-//         dataKey="name"
-//         allowDataOverflow="true"
-//       />
-//     </BarChart>
-//   );
-// }

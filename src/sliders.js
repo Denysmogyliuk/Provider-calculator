@@ -17,32 +17,32 @@ export default function Sliders({
   };
 
   return (
-    <Box width={"auto"}>
+    <div>
       <Typography id="non-linear-slider" gutterBottom>
         {`Storage: ${valueStorage} GB`}
       </Typography>
       <Slider
-        size="big"
-        max={1000}
-        step={1}
-        defaultValue={0}
         aria-label="Default"
-        valueLabelDisplay="auto"
+        defaultValue={0}
+        max={1000}
         onChange={handleSliderStorageChange}
+        size="big"
+        step={1}
+        valueLabelDisplay="auto"
       />
 
       <Typography id="non-linear-slider" gutterBottom>
         {`Transfer: ${valueTransfer} GB`}
       </Typography>
       <Slider
-        size="big"
-        max={1000}
-        step={1}
-        defaultValue={0}
         aria-label="Default"
-        valueLabelDisplay="auto"
+        defaultValue={0}
+        max={1000}
         onChange={handleSliderTransferChange}
+        size="big"
+        step={1}
+        valueLabelDisplay="auto"
       />
-    </Box>
+    </div>
   );
 }

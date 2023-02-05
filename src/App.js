@@ -1,9 +1,11 @@
 // import "./styles.css";
 import React, { useState } from "react";
-import makeData from "./make-data";
-import ProviderCard from "./provider-card";
-import Sliders from "./sliders";
-import Graph from "./graph";
+import makeData from "./makeData";
+import Sliders from "./Sliders";
+import Graph from "./Graph";
+import ProvidersBar from "./ProvidersBar";
+import PROVIDERS_SETTINGS from "./PROVIDERS_SETTINGS";
+import { Copyright } from "./Copyright";
 
 export default function App() {
   const [valueStorage, setValueStorage] = useState(0);
@@ -15,26 +17,14 @@ export default function App() {
 
   return (
     <>
-      <div className={"main__graph-cards-wrapper"}>
+      <div className="main__graph-cards-wrapper">
         <Graph data={data} />
 
-        <div className={"cards"}>
-          <ProviderCard name={"Backblaze"} photo={"./logos/backblaze.png"} />
-          <ProviderCard
-            name={"Bunny"}
-            photo={"./logos/bunny.png"}
-            changeHdd={setIsHdd}
-            hdd
-          />
-          <ProviderCard
-            name={"Scaleway"}
-            photo={"./logos/scaleway.png"}
-            single
-            changeSingle={setIsSingle}
-            isSingle
-          />
-          <ProviderCard name={"Vultr"} photo={"./logos/vultr.png"} />
-        </div>
+        <ProvidersBar
+          onChangeHdd={setIsHdd}
+          onChangeSingle={setIsSingle}
+          settings={PROVIDERS_SETTINGS}
+        />
       </div>
 
       <Sliders
@@ -43,6 +33,7 @@ export default function App() {
         valueStorage={valueStorage}
         valueTransfer={valueTransfer}
       />
+      <Copyright />
     </>
   );
 }
