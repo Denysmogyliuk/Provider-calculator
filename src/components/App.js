@@ -1,10 +1,9 @@
-// import "./styles.css";
 import React, { useState } from "react";
-import makeData from "./makeData";
+import makeData from "../utils/makeData";
 import Sliders from "./Sliders";
 import Graph from "./Graph";
 import ProvidersBar from "./ProvidersBar";
-import PROVIDERS_SETTINGS from "./PROVIDERS_SETTINGS";
+import PROVIDERS_SETTINGS from "../constants/PROVIDERS_SETTINGS";
 import { Copyright } from "./Copyright";
 
 export default function App() {

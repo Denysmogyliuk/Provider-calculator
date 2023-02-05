@@ -16,9 +16,9 @@ body {
 }
 
 .provider__card {
-  width: 90px;
   display: flex;
   flex-direction: column;
+  width: 90px;
 }
 
 .provider__header {
@@ -90,10 +90,10 @@ body {
   }
 
   .provider__card {
-    display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-    width: 200px;
+    width: 250px;
     height: 90px;
     display: flex;
     flex-direction: row;

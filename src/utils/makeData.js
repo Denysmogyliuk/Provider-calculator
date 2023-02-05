@@ -10,33 +10,55 @@ const MIN_COLORS = {
   [VULTR]: "blue",
 };
 
+const BACKBLAZE_STORAGE = 0.005;
+const BACKBLAZE_TRANSFER = 0.01;
+const BACKBLAZE_MIN_PAYMENT = 7;
+const BUNNY_HDD = 0.01;
+const BUNNY_SSD = 0.02;
+const BUNNY_TRANSFER = 0.01;
+const BUNNY_MAX_PAYMENT = 10;
+const SCALEWAY_FREE_SINGLE = 75;
+const SCALEWAY_FREE_MULTY = 75;
+const SCALEWAY_FREE_TRANSFER = 75;
+const SCALEWAY_SINGLE = 0.03;
+const SCALEWAY_MULTY = 0.06;
+const SCALEWAY_TRANSFER = 0.02;
+const VULTR_STORAGE = 0.01;
+const VULTR_TRANSFER = 0.01;
+const VULTR_MIN_PAYMENT = 5;
+
 export default function makeData(storage, transfer, isHdd, isSingle) {
   const backblazePrice = (
-    storage * 0.005 + transfer * 0.01 < 7
-      ? 7
-      : storage * 0.005 + transfer * 0.01
+    storage * BACKBLAZE_STORAGE + transfer * BACKBLAZE_TRANSFER < 7
+      ? BACKBLAZE_MIN_PAYMENT
+      : storage * BACKBLAZE_STORAGE + transfer * BACKBLAZE_TRANSFER
   ).toFixed(2);
 
-  const vultrPrice = (
-    storage * 0.01 + transfer * 0.01 < 5 ? 5 : storage * 0.01 + transfer * 0.01
+  const bunnyPrice = (
+    storage * (isHdd ? BUNNY_HDD : BUNNY_SSD) + transfer * BUNNY_TRANSFER >
+    BUNNY_MAX_PAYMENT
+      ? BUNNY_MAX_PAYMENT
+      : storage * (isHdd ? BUNNY_HDD : BUNNY_SSD) + transfer * BUNNY_TRANSFER
   ).toFixed(2);
 
   const scaleWayPrice = (
     (isSingle
-      ? storage < 75
+      ? storage < SCALEWAY_FREE_SINGLE
         ? 0
-        : (storage - 75) * 0.03
-      : storage < 75
+        : (storage - SCALEWAY_FREE_SINGLE) * SCALEWAY_SINGLE
+      : storage < SCALEWAY_FREE_MULTY
       ? 0
-      : (storage - 75) * 0.06) + (transfer < 75 ? 0 : (transfer - 75) * 0.02)
+      : (storage - SCALEWAY_FREE_MULTY) * SCALEWAY_MULTY) +
+    (transfer < SCALEWAY_FREE_TRANSFER
+      ? 0
+      : (transfer - SCALEWAY_FREE_TRANSFER) * SCALEWAY_TRANSFER)
   ).toFixed(2);
 
-  const bunnyPrice = (
-    storage * (isHdd ? 0.01 : 0.02) + transfer * 0.01 > 10
-      ? 10
-      : storage * (isHdd ? 0.01 : 0.02) + transfer * 0.01
+  const vultrPrice = (
+    storage * VULTR_STORAGE + transfer * VULTR_TRANSFER < VULTR_MIN_PAYMENT
+      ? VULTR_MIN_PAYMENT
+      : storage * VULTR_STORAGE + transfer * VULTR_TRANSFER
   ).toFixed(2);
-
   const minPrices = [
     { name: "BACKBLAZE", price: backblazePrice },
     { name: "BUNNY", price: bunnyPrice },
