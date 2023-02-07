@@ -7,10 +7,10 @@ import PROVIDERS_SETTINGS from "../constants/PROVIDERS_SETTINGS";
 import { Copyright } from "./Copyright";
 
 export default function App() {
+  const [isHdd, setIsHdd] = useState(1);
+  const [isSingle, setIsSingle] = useState(1);
   const [valueStorage, setValueStorage] = useState(0);
   const [valueTransfer, setValueTransfer] = useState(0);
-  const [isSingle, setIsSingle] = useState(1);
-  const [isHdd, setIsHdd] = useState(1);
 
   const data = makeData(valueStorage, valueTransfer, isHdd, isSingle);
 

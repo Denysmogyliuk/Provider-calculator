@@ -11,12 +11,15 @@ import {
 import { useState, useEffect, useCallback } from "react";
 import throttle from "lodash.debounce";
 
+const CHANGE_WIDTH_VALUE = 880;
+
 export default function Graph({ data }) {
-  const [isVertical, setIsVertical] = useState();
+  const initializedState = window.innerWidth < CHANGE_WIDTH_VALUE;
+  const [isVertical, setIsVertical] = useState(initializedState);
   const throttledSwitchWidth = useCallback(throttle(switchWidth, 300), []);
 
   function switchWidth() {
-    setIsVertical(window.innerWidth < 880);
+    setIsVertical(window.innerWidth < CHANGE_WIDTH_VALUE);
   }
 
   useEffect(() => {
